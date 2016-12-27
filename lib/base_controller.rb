@@ -1,7 +1,10 @@
 require 'webrick'
+
 require 'active_support'
 require 'active_support/core_ext'
 require 'active_support/inflector'
+
+require_relative './session'
 
 class BaseController
   attr_reader :req, :res
@@ -21,6 +24,8 @@ class BaseController
     res.status = 302
 
     @_response_is_built = true
+
+    session.store_session(res)
   end
 
   def render_content(content, content_type)
@@ -29,6 +34,7 @@ class BaseController
     res.content_type = content_type
     res.body = content
     @_response_is_built = true
+    session.store_session(res)
   end
 
   def render(template_name)
@@ -38,6 +44,10 @@ class BaseController
   end
 
   private
+  def session
+    @_session ||= Session.new(req)
+  end
+
   def validate_response_is_not_built!
     raise HasRespondedError.new('Already responded') if response_is_built?
   end

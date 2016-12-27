@@ -11,6 +11,8 @@ class SomesController < BaseController
   end
 
   def show
+    session['count'] ||= 0
+    session['count'] += 1
     render :show
   end
 end
