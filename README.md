@@ -1,1 +1,1 @@
-Ruby on Rails framework from scratch.
+Custom Ruby on Rails like framework from scratch.
