@@ -3,17 +3,18 @@ require 'webrick'
 require 'active_support'
 require 'active_support/core_ext'
 require 'active_support/inflector'
+require_relative './params'
 
 require_relative './session'
 
 class BaseController
-  attr_reader :req, :res
+  attr_reader :req, :res, :params
   class Error < StandardError; end
   class HasRespondedError < Error; end
 
   def initialize(req, res, params = {})
     @req, @res = req, res
-    @params = params
+    @params = Params.new(req, params)
   end
 
   def redirect_to(url)

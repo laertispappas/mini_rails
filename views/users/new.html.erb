@@ -1,0 +1,11 @@
+<h3> New User</h3>
+
+
+<form action="/users" method="POST">
+  <label>Name
+    <input type="text" name="user[name]" value="<%= @user.name %>">
+  </label>
+
+  <input type="submit">
+</form>
+
