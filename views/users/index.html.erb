@@ -1,3 +1,6 @@
-<a href="/users/new">New user!</a>
+Flash:
+<%= flash[:notice] %>
+
+<%= link_to 'New user!', '/users/new' %>
 <h3> List users</h3>
 <pre><%= @users.to_s %></pre>
