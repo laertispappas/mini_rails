@@ -1,4 +1,7 @@
 require 'webrick'
+require 'active_support'
+require 'active_support/core_ext'
+require 'active_support/inflector'
 
 class BaseController
   attr_reader :req, :res
@@ -29,6 +32,9 @@ class BaseController
   end
 
   def render(template_name)
+    view = File.read("views/#{self.class.name.underscore.gsub('_controller', '')}/#{template_name}.html.erb")
+    template = ERB.new(view).result(binding)
+    render_content(template, "text/html")
   end
 
   private
